@@ -1,6 +1,7 @@
 # recitation-04
 
 from collections import defaultdict
+from operator import add
 
 
 #### PART ONE ###
@@ -36,9 +37,11 @@ def word_count_map(doc):
     >>> word_count_map('i am sam i am')
     [('i', 1), ('am', 1), ('sam', 1), ('i', 1), ('am', 1)]
     """
-    ###TODO
-    
-    
+    splitDoc = doc.split()              # split doc before counting words
+    returnList = []                     # empty list to append and return to
+    for word in splitDoc:               # iterate through the doc, adding each word with the form (word, 1) to the list
+        returnList.append((word, 1))
+    return returnList                   # return results
 
 
 def word_count_reduce(group):
@@ -53,9 +56,7 @@ def word_count_reduce(group):
     
     NOTE: you should use call the `reduce` function here.
     """
-    ###TODO
-    
-    
+    return (group[0], reduce(add, 0, group[1]))
 
 
 def iterate(f, x, a):
@@ -104,8 +105,7 @@ def reduce(f, id_, a):
                  reduce(f, id_, a[len(a)//2:]))
     
     
-    
-    
+
 ### PART TWO ###
 
 def sentiment_map(doc,
@@ -122,5 +122,16 @@ def sentiment_map(doc,
     >>> sentiment_map('it was a terrible waste of time')
     [('negative', 1), ('negative', 1)]
     """
-    ###TODO
+    posTuple = ('positive', 1)              # tuple for positive words
+    negTuple = ('negative', 1)              # tuple for negative words
+    returnList = []                         # empty list to append to and return
+    splitDoc = doc.split()                  # split doc before checking for positive and negative words
+
+    for word in splitDoc:                   # iterate over all words in doc
+        if word in pos_terms:
+            returnList.append(posTuple)     # add positive tuple to returnList if word is in list of positive words
+        elif word in neg_terms:
+            returnList.append(negTuple)     # add negative tuple to returnList if word is in list of negative words
+    return returnList                       # return results
+
 
